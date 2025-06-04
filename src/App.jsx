@@ -10,6 +10,8 @@ import store from './store/store';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import CreateSchedule from './pages/Schedule/CreateSchedule';
+import ViewSchedule from './components/schedule/ViewSchedule';
+import ApproveSchedule from './components/schedule/ApproveSchedule';
 
 const theme = createTheme({
   palette: {
@@ -34,8 +36,8 @@ function App() {
                 <Route index element={<HomePage />} />
                 <Route path="schedule">
                   <Route path="create" element={<CreateSchedule />} />
-                  <Route path="view" element={<div>Xem lịch</div>} />
-                  <Route path="approve" element={<div>Duyệt lịch</div>} />
+                  <Route path="view" element={<ViewSchedule />} />
+                  <Route path="approve" element={<ApproveSchedule />} />
                 </Route>
               </Route>
             </Routes>

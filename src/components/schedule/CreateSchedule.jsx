@@ -22,6 +22,7 @@ import { vi } from 'date-fns/locale';
 import { format } from 'date-fns';
 import AddScheduleModal from './AddScheduleModal';
 import scheduleService from '../../services/scheduleService';
+import WeekScheduleTable from './WeekScheduleTable';
 
 const CreateSchedule = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -256,41 +257,7 @@ const CreateSchedule = () => {
         )}
 
         {searchResults.length > 0 && (
-          <TableContainer component={Paper} sx={{ mt: 4 }}>
-            <Table sx={{ minWidth: 650 }}>
-              {Object.entries(groupSchedulesByDate(searchResults)).map(([date, schedules]) => (
-                <React.Fragment key={date}>
-                  <TableHead>
-                    <TableRow sx={{ backgroundColor: '#e3f2fd' }}>
-                      <TableCell colSpan={5} sx={{ py: 1 }}>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                          {formatDate(date)}
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold', width: '100px' }}>Thời gian</TableCell>
-                      <TableCell sx={{ fontWeight: 'bold', width: '200px' }}>Lãnh đạo/Cục tham dự</TableCell>
-                      <TableCell sx={{ fontWeight: 'bold' }}>Nội dung</TableCell>
-                      <TableCell sx={{ fontWeight: 'bold', width: '150px' }}>Địa điểm</TableCell>
-                      <TableCell sx={{ fontWeight: 'bold', width: '200px' }}>Đơn vị chuẩn bị/Tham dự</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {schedules.map((schedule) => (
-                      <TableRow key={schedule.id}>
-                        <TableCell>{formatDateTime(schedule.startTime)}</TableCell>
-                        <TableCell>{schedule.leaderCompany}</TableCell>
-                        <TableCell>{schedule.title}</TableCell>
-                        <TableCell>{schedule.location}</TableCell>
-                        <TableCell>{schedule.component}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </React.Fragment>
-              ))}
-            </Table>
-          </TableContainer>
+          <WeekScheduleTable schedules={searchResults} />
         )}
       </Box>
 

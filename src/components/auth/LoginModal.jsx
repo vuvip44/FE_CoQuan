@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Dialog,
   DialogTitle,
@@ -14,6 +14,7 @@ import { setUser, setError, setLoading } from '../../store/authSlice';
 
 const LoginModal = ({ open, onClose }) => {
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.auth.error);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -43,6 +44,11 @@ const LoginModal = ({ open, onClose }) => {
       <DialogTitle>Đăng nhập</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
           <TextField
             autoFocus
             margin="dense"

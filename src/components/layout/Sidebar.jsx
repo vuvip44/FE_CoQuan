@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -21,7 +21,17 @@ const DRAWER_WIDTH = 240;
 const Sidebar = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const isAdmin = user?.role === 'Admin';
+  
+  // Debug user data
+  useEffect(() => {
+    console.log('Current user:', user);
+    console.log('Is authenticated:', isAuthenticated);
+    console.log('User data:', user?.user);
+    console.log('User roleId:', user?.user?.roleId);
+  }, [user, isAuthenticated]);
+  
+  // Check if user has admin role (roleId === 1)
+  const isAdmin = user?.user?.roleId === 1;
 
   const menuItems = [
     {
@@ -44,12 +54,19 @@ const Sidebar = () => {
     }
   ];
 
-  const filteredMenuItems = menuItems.filter(item =>
-    isAuthenticated && (
-      item.roles.includes(user?.role) ||
-      (item.roles.includes('User') && !isAdmin)
-    )
-  );
+  const filteredMenuItems = menuItems.filter(item => {
+    if (!isAuthenticated || !user?.user) return false;
+    
+    // For admin role (roleId === 1)
+    if (isAdmin) {
+      console.log(`Admin can see: ${item.text}`);
+      return true; // Admin can see all items
+    }
+    
+    // For user role (roleId === 2)
+    console.log(`User can see: ${item.text} - ${item.roles.includes('User')}`);
+    return item.roles.includes('User');
+  });
 
   return (
     <Drawer

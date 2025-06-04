@@ -15,7 +15,7 @@ const Layout = () => {
           sx={{
             flexGrow: 1,
             p: 3,
-            marginLeft: '240px', // Width of the drawer
+            marginLeft: '80px', // Giảm từ 240px xuống 80px
             marginTop: '64px', // Height of AppBar
           }}
         >

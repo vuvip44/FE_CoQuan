@@ -58,6 +58,40 @@ const scheduleService = {
     } catch (error) {
       throw error.response?.data || error.message;
     }
+  },
+
+  getSchedulesByWeek: async (week) => {
+    try {
+      const response = await axios.get(`${API_URL}/week/${week}`, {
+        withCredentials: true
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  getPendingSchedules: async () => {
+    try {
+      const response = await axios.get(`${API_URL}/pending`, {
+        withCredentials: true
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  updateScheduleStatus: async (id, status) => {
+    try {
+      const response = await axios.put(`${API_URL}/${id}/status`, status, {
+        withCredentials: true,
+        headers: { 'Content-Type': 'application/json' }
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
   }
 };
 

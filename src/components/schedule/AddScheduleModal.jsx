@@ -167,6 +167,10 @@ const AddScheduleModal = ({ open, onClose, onSuccess }) => {
                 )}
                 ampm={false}
                 format="dd/MM/yyyy HH:mm"
+                slotProps={{
+                  actionBar: { actions: ['cancel', 'accept'] },
+                  popper: { placement: 'bottom', disablePortal: false }
+                }}
               />
             </Box>
 
@@ -180,6 +184,10 @@ const AddScheduleModal = ({ open, onClose, onSuccess }) => {
                 )}
                 ampm={false}
                 format="dd/MM/yyyy HH:mm"
+                slotProps={{
+                  actionBar: { actions: ['cancel', 'accept'] },
+                  popper: { placement: 'bottom', disablePortal: false }
+                }}
               />
             </Box>
           </LocalizationProvider>
