@@ -92,6 +92,33 @@ const scheduleService = {
     } catch (error) {
       throw error.response?.data || error.message;
     }
+  },
+
+  getScheduleByCurrentUser: async () => {
+    try {
+      const response = await axios.get(`${API_URL}/get-current-user`, {
+        withCredentials: true
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  updateSchedule: async (id, scheduleData) => {
+    try {
+      console.log('Sending update data:', scheduleData);
+      const response = await axios.put(`${API_URL}/${id}`, scheduleData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Update error details:', error.response?.data);
+      throw error.response?.data || error.message;
+    }
   }
 };
 

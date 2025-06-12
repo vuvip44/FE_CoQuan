@@ -25,9 +25,9 @@ const groupSchedulesByDate = (schedules) => {
 
 const cellBorder = { border: '1px solid #bdbdbd' };
 
-const WeekScheduleTable = ({ schedules }) => {
-  if (!schedules || schedules.length === 0) return null;
+const WeekScheduleTable = ({ schedules = [] }) => {
   const grouped = groupSchedulesByDate(schedules);
+  
   return (
     <TableContainer component={Paper} sx={{ mt: 2 }}>
       <Table sx={{ minWidth: 650, border: '1px solid #bdbdbd' }}>
@@ -41,29 +41,39 @@ const WeekScheduleTable = ({ schedules }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.entries(grouped).map(([date, schedules]) => (
-            <React.Fragment key={date}>
-              <TableRow sx={{ backgroundColor: '#e3f2fd' }}>
-                <TableCell colSpan={5} align="center" sx={{ py: 1, ...cellBorder }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                    {formatDate(date)}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-              {schedules.map((schedule) => (
-                <TableRow
-                  key={schedule.id}
-                  sx={schedule.status === 'Pending' ? { backgroundColor: '#ffcccc' } : { backgroundColor: '#fff' }}
-                >
-                  <TableCell sx={cellBorder}>{formatDateTime(schedule.startTime)}</TableCell>
-                  <TableCell sx={cellBorder}>{schedule.leaderCompany}</TableCell>
-                  <TableCell sx={cellBorder}>{schedule.title}</TableCell>
-                  <TableCell sx={cellBorder}>{schedule.location}</TableCell>
-                  <TableCell sx={cellBorder}>{schedule.component}</TableCell>
+          {Object.entries(grouped).length > 0 ? (
+            Object.entries(grouped).map(([date, schedules]) => (
+              <React.Fragment key={date}>
+                <TableRow sx={{ backgroundColor: '#e3f2fd' }}>
+                  <TableCell colSpan={5} align="center" sx={{ py: 1, ...cellBorder }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                      {formatDate(date)}
+                    </Typography>
+                  </TableCell>
                 </TableRow>
-              ))}
-            </React.Fragment>
-          ))}
+                {schedules.map((schedule) => (
+                  <TableRow
+                    key={schedule.id}
+                    sx={schedule.status === 'Pending' ? { backgroundColor: '#ffcccc' } : { backgroundColor: '#fff' }}
+                  >
+                    <TableCell sx={cellBorder}>{formatDateTime(schedule.startTime)}</TableCell>
+                    <TableCell sx={cellBorder}>{schedule.leaderCompany}</TableCell>
+                    <TableCell sx={cellBorder}>{schedule.title}</TableCell>
+                    <TableCell sx={cellBorder}>{schedule.location}</TableCell>
+                    <TableCell sx={cellBorder}>{schedule.component}</TableCell>
+                  </TableRow>
+                ))}
+              </React.Fragment>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} align="center" sx={{ py: 2, ...cellBorder }}>
+                <Typography variant="body1" color="text.secondary">
+                  Không có lịch nào trong tuần này
+                </Typography>
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
