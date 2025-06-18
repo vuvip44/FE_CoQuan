@@ -14,6 +14,8 @@ import {
   EventNote as EventNoteIcon,
   CalendarMonth as CalendarMonthIcon,
   AdminPanelSettings as AdminPanelSettingsIcon,
+  People as PeopleIcon,
+  AccountCircle as AccountCircleIcon,
 } from '@mui/icons-material';
 
 const DRAWER_WIDTH = 240;
@@ -51,6 +53,12 @@ const Sidebar = () => {
       icon: <AdminPanelSettingsIcon />,
       path: '/schedule/approve',
       roles: ['Admin']
+    },
+    {
+      text: isAdmin ? 'Quản lý người dùng' : 'Quản lý tài khoản',
+      icon: isAdmin ? <PeopleIcon /> : <AccountCircleIcon />,
+      path: isAdmin ? '/users' : '/account',
+      roles: ['Admin', 'User']
     }
   ];
 

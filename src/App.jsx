@@ -12,6 +12,8 @@ import HomePage from './pages/HomePage';
 import CreateSchedule from './pages/Schedule/CreateSchedule';
 import ViewSchedule from './components/schedule/ViewSchedule';
 import ApproveSchedule from './components/schedule/ApproveSchedule';
+import UserManagement from './components/user/UserManagement';
+import AccountManagement from './components/user/AccountManagement';
 
 const theme = createTheme({
   palette: {
@@ -39,6 +41,8 @@ function App() {
                   <Route path="view" element={<ViewSchedule />} />
                   <Route path="approve" element={<ApproveSchedule />} />
                 </Route>
+                <Route path="users" element={<UserManagement />} />
+                <Route path="account" element={<AccountManagement />} />
               </Route>
             </Routes>
           </Router>
